@@ -53,4 +53,19 @@ class DeliveryFormTest {
 
         $("[data-test-id=success-notification]").shouldHave(Condition.text("Встреча успешно запланирована на " + secondDate)).shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
+
+    @Test
+    void shouldGetErrorMessageIfInputWrongPhoneNumber() {
+        var user = DataGenerator.generateUser();
+        var firstDate = DataGenerator.generateDate(3);
+
+        $("[data-test-id=city] input").setValue(user.getCity());
+        $("[data-test-id=date] input").doubleClick().sendKeys(firstDate);
+        $("[data-test-id=name] input").setValue(user.getName());
+        $("[data-test-id=phone] input").setValue(DataGenerator.generateWrongPhone());
+        $("[data-test-id=agreement]").click();
+        $("button.button").click();
+
+        $("[data-test-id='phone'] .input__sub").shouldHave(Condition.text("Неверно указан номе телефона"));
+    }
 }

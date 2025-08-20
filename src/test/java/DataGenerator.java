@@ -21,6 +21,10 @@ public class DataGenerator {
         return faker.phoneNumber().phoneNumber();
     }
 
+    public static String generateWrongPhone() {
+        return faker.numerify("+00001");
+    }
+
     public static String generateDate(int daysFromNow) {
         return LocalDate.now().plusDays(daysFromNow)
                 .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
@@ -29,4 +33,5 @@ public class DataGenerator {
     public static RegistrationInfo generateUser() {
         return new RegistrationInfo(generateCity(), generateName(), generatePhone());
     }
+
 }
